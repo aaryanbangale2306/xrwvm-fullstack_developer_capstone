@@ -3,3 +3,5 @@ server/db.sqlite3
 server/staticfiles/
 __pycache__/
 *.pyc
+node_modules/
+package-lock.json

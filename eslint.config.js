@@ -13,7 +13,12 @@ export default [
                 }
             },
             globals: {
-                console: "readonly"
+                console: "readonly",
+                window: "readonly",
+                document: "readonly",
+                sessionStorage: "readonly",
+                alert: "readonly",
+                fetch: "readonly"
             }
         },
         rules: {
