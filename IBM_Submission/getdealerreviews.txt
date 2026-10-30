@@ -1,0 +1,5 @@
+Command:
+curl.exe -X GET http://127.0.0.1:8000/fetchReviews/dealer/1
+
+Output:
+[{"id": 51, "dealer_id": 1, "dealership": "Holdlamis Car Dealership", "name": "Alex Johnson", "purchase": true, "review": "Great service and friendly staff! Highly recommend this dealership.", "purchase_date": "02/15/2023", "car_make": "Toyota", "car_model": "Corolla", "car_year": 2021, "sentiment": "Positive"}]

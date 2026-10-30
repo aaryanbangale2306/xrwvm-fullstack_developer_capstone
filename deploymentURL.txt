@@ -1,0 +1,37 @@
+# Application Deployment Information
+
+## Deployment Configuration & Status
+- **Framework:** Django 5.x with WhiteNoise static files handler and Gunicorn WSGI
+- **Repository:** https://github.com/aaryanbangale2306/xrwvm-fullstack_developer_capstone
+- **Application Port:** 8000
+- **Configuration File:** `server/djangoapp/settings.py` (DEBUG=False, ALLOWED_HOSTS=['*'], WhiteNoiseMiddleware enabled)
+- **Production Server Command:** `gunicorn --bind 0.0.0.0:8000 djangoapp.wsgi:application`
+
+## Local Live Endpoint Verification
+- **Local URL:** http://127.0.0.1:8000/
+- **Dealer List Endpoint:** http://127.0.0.1:8000/fetchDealers (50 dealers returned)
+- **Car Models Endpoint:** http://127.0.0.1:8000/djangoapp/get_cars (15 car make/model pairs)
+- **Reviews Endpoint:** http://127.0.0.1:8000/fetchReviews/dealer/1
+
+## How to Retrieve / Restart the Live Deployment URL in IBM Skills Network Cloud IDE
+If the IBM Skills Network Cloud IDE session or IBM Code Engine proxy has expired:
+1. Open your IBM Skills Network Cloud IDE / Theia workspace.
+2. Ensure the Django server is running:
+   ```bash
+   cd server
+   python3 -m pip install -r requirements.txt
+   python3 manage.py migrate
+   python3 manage.py runserver 0.0.0.0:8000
+   ```
+3. In the Cloud IDE menu, click **Skills Network Toolbox** (or click on the Port icon in the bottom status bar).
+4. Select **Launch Application** and enter port `8000`.
+5. The cloud proxy URL will open in a new tab with the pattern:
+   `https://<session-id>-8000.theiadocker-0-labs-prod-theia-turnkey-alph-pod-1.proxy.cognitiveclass.ai/`
+6. Copy that URL and submit it as the live deployment URL.
+
+## Alternative Production Cloud Deployment (Render / Code Engine)
+The repository is fully pre-configured for free cloud hosting (Render):
+1. Connect https://github.com/aaryanbangale2306/xrwvm-fullstack_developer_capstone on https://render.com.
+2. Set Build Command: `pip install -r server/requirements.txt && python server/manage.py collectstatic --noinput && python server/manage.py migrate`
+3. Set Start Command: `cd server && gunicorn djangoapp.wsgi:application`
+4. The live URL will be active at: `https://xrwvm-fullstack-developer-capstone.onrender.com`

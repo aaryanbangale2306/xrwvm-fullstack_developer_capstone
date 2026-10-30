@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render, redirect
 from dealership.models import Dealer, DealerReview, CarMake, CarModel
-from .populate import populate_cars, populate_dealers
+from .populate import populate_cars, populate_dealers, populate_reviews
 
 logger = logging.getLogger(__name__)
 
@@ -177,6 +177,9 @@ def get_dealers_by_state(request, state):
 
 
 def get_dealer_reviews(request, dealer_id):
+    if DealerReview.objects.count() == 0:
+        populate_reviews()
+
     try:
         dealer = Dealer.objects.get(id=dealer_id)
     except Dealer.DoesNotExist:

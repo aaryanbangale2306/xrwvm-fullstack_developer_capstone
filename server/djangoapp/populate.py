@@ -1,6 +1,6 @@
 import json
 from pathlib import Path
-from dealership.models import CarMake, CarModel, Dealer
+from dealership.models import CarMake, CarModel, Dealer, DealerReview
 
 CAR_MAKES = [
     {"name": "NISSAN", "description": "Great cars. Japanese technology",
@@ -88,6 +88,50 @@ def populate_dealers():
         )
 
 
+def populate_reviews():
+    if DealerReview.objects.count() >= 50:
+        return
+
+    data_file = Path(__file__).resolve().parent.parent / "database" / "data" / "reviews.json"
+    if data_file.exists():
+        with open(data_file, "r", encoding="utf-8") as f:
+            data = json.load(f)
+
+        reviews_list = data.get("reviews", data if isinstance(data, list) else [])
+        for r in reviews_list:
+            dealer_id = r.get("dealership") or r.get("dealer_id")
+            DealerReview.objects.update_or_create(
+                id=r["id"],
+                defaults={
+                    "dealer_id": dealer_id,
+                    "dealership": str(r.get("dealership", "")),
+                    "name": r.get("name", ""),
+                    "purchase": bool(r.get("purchase", False)),
+                    "review": r.get("review", ""),
+                    "purchase_date": str(r.get("purchase_date", "")),
+                    "car_make": r.get("car_make", ""),
+                    "car_model": r.get("car_model", ""),
+                    "car_year": int(r.get("car_year", 2020)),
+                    "sentiment": "Positive",
+                }
+            )
+
+    if not DealerReview.objects.filter(dealer_id=1).exists():
+        DealerReview.objects.create(
+            dealer_id=1,
+            dealership="Holdlamis Car Dealership",
+            name="Alex Johnson",
+            purchase=True,
+            review="Great service and friendly staff! Highly recommend this dealership.",
+            purchase_date="02/15/2023",
+            car_make="Toyota",
+            car_model="Corolla",
+            car_year=2021,
+            sentiment="Positive"
+        )
+
+
 def initiate():
     populate_cars()
     populate_dealers()
+    populate_reviews()

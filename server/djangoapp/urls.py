@@ -23,15 +23,20 @@ urlpatterns = [
     path("fetchDealers/", get_all_dealers),
     path("djangoapp/fetchDealers", get_all_dealers),
     path("djangoapp/get_dealers", get_all_dealers),
+    path("fetchDealer/<int:dealer_id>", get_dealer_by_id),
+    path("djangoapp/fetchDealer/<int:dealer_id>", get_dealer_by_id),
     path("dealer/<int:dealer_id>", get_dealer_by_id),
     path("djangoapp/dealer/<int:dealer_id>", get_dealer_by_id),
     path("fetchDealers/<str:state>", get_dealers_by_state),
     path("djangoapp/get_dealers/<str:state>", get_dealers_by_state),
 
     # Reviews
+    path("fetchReviews/dealer/<int:dealer_id>", get_dealer_reviews),
+    path("djangoapp/fetchReviews/dealer/<int:dealer_id>", get_dealer_reviews),
     path("dealer/<int:dealer_id>/reviews", get_dealer_reviews),
     path("djangoapp/reviews/dealer/<int:dealer_id>", get_dealer_reviews),
     path("analyze/<str:review_text>", analyze_review),
+    path("djangoapp/analyze/<str:review_text>", analyze_review),
     path("dealer/<int:dealer_id>/review", review_dealer),
 
     # Cars & Makes/Models

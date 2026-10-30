@@ -1,0 +1,5 @@
+Command:
+curl.exe -X GET "http://127.0.0.1:8000/analyze/Fantastic%20services"
+
+Output:
+{"review": "Fantastic services", "sentiment": "Positive"}
