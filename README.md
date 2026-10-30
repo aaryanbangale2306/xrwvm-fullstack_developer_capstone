@@ -71,12 +71,15 @@ xrwvm-fullstack_developer_capstone/
 
 | Endpoint | Method | Description |
 |---|---|---|
-| `/fetchDealers` | GET | Returns all 50 dealerships |
-| `/fetchDealers/<state>` | GET | Returns dealers filtered by state |
-| `/dealer/<id>` | GET | Returns single dealer by ID |
-| `/dealer/<id>/reviews` | GET | Returns reviews for a dealer |
-| `/djangoapp/get_cars` | GET | Returns 15 make-model pairs |
-| `/djangoapp/login` | POST | User login |
+| `/fetchDealers` | GET | Returns all 50 dealerships with ID, city, state, address |
+| `/fetchDealers/<state>` | GET | Returns dealerships filtered by state (e.g. Kansas) |
+| `/fetchDealer/<id>` | GET | Returns single dealership by ID (e.g. /fetchDealer/1) |
+| `/dealer/<id>` | GET | Returns single dealership by ID |
+| `/fetchReviews/dealer/<id>` | GET | Returns reviews for a dealership (e.g. /fetchReviews/dealer/1) |
+| `/dealer/<id>/reviews` | GET | Returns reviews for a dealership |
+| `/analyze/<review_text>` | GET | Returns sentiment analysis for review text |
+| `/djangoapp/get_cars` | GET | Returns 15 individual car make-model pairs |
+| `/djangoapp/login` | POST | User authentication |
 | `/djangoapp/logout` | GET | User logout |
 | `/djangoapp/register` | POST | User registration |
 
@@ -127,10 +130,20 @@ GitHub Actions workflow (`.github/workflows/ci.yml`) runs two jobs on every push
 
 ---
 
-## Grading Evidence
+## Grading Evidence & Submission Files
 
-| Question | File | Status |
-|---|---|---|
-| Q9 – getalldealers | `getalldealers.txt` | 50 records |
-| Q14 – getallcarmakes | `getallcarmakes.txt` | 15 make-model pairs |
-| Task 23 – CI/CD | `CI-CD/` folder | Both jobs passing |
+All submission evidence files containing actual curl commands and outputs are organized in `IBM_Submission/` (and repository root):
+
+| Item | File | Description | Status |
+|---|---|---|---|
+| 1 | `loginuser.txt` | POST `/djangoapp/login` user authentication | ✅ Verified |
+| 2 | `logoutuser.txt` | GET `/djangoapp/logout` user logout | ✅ Verified |
+| 3 | `getdealerreviews.txt` | GET `/fetchReviews/dealer/1` dealer reviews | ✅ Verified |
+| 4 | `getalldealers.txt` | GET `/fetchDealers` returns all 50 dealerships with ID & city | ✅ 50 records |
+| 5 | `getdealerbyid.txt` | GET `/fetchDealer/1` returns dealership by ID | ✅ Verified |
+| 6 | `getdealersbyState.txt` | GET `/fetchDealers/Kansas` dealers by state | ✅ Verified |
+| 7 | `getallcarmakes.txt` | GET `/djangoapp/get_cars` individual make-model pairs | ✅ 15 pairs |
+| 8 | `analyzereview.txt` | GET `/analyze/Fantastic%20services` sentiment analysis | ✅ Positive |
+| 9 | `deploymentURL.txt` | Application deployment status and retrieval instructions | ✅ Complete |
+| 10 | `CI-CD/` | GitHub Actions workflow evidence (`workflow-evidence.md`) | ✅ Both jobs passed |
+
